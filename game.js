@@ -22,7 +22,7 @@ let shakeTime = 0;
 let shakeIntensity = 0;
 let gameRunning = false;
 let gameOverScreenActive = false;
-let volume = 0.3;
+let volume = 0.1;
 
 backgroundMusic.volume = volume;
 volumeControl.textContent = `Volume: ${Math.round(volume * 100)}%`;
@@ -70,7 +70,16 @@ const rahmenEnemy = "transparent"; // farbe kann angegeben werden z.B red, blue 
 
 // ----------------------------------------------------------------------
 
+const enemyImages = [
+    'img/monster1.gif',
+    'img/monster2.gif',
+    'img/monster3.gif',
+    'img/monster4.gif',
+    'img/monster5.gif',
+];
+
 let enemies = [];
+
 let enemyImage = new Image(); // Create a new image object
 enemyImage.src = 'img/monster2.gif'; // Set the source of the image
 
@@ -82,7 +91,17 @@ enemyImage.onload = function () {
 
 function drawEnemies() {
     for (let enemy of enemies) {
-        ctx.drawImage(enemyImage, enemy.x, enemy.y, breiteEnemy, hoeheEnemy); // Größe auf 100x100 geändert
+        // Zufälligen Index auswählen
+        const randomIndex = Math.floor(Math.random() * enemyImages.length);
+
+        // Bild laden, wenn noch nicht geladen
+        if (!enemy.image) {
+            enemy.image = new Image();
+            enemy.image.src = enemyImages[randomIndex];
+        }
+
+        // Bild zeichnen
+        ctx.drawImage(enemy.image, enemy.x, enemy.y, breiteEnemy, hoeheEnemy);
         ctx.strokeStyle = `${rahmenEnemy}`; // Rahmenfarbe auf Rot setzen
         ctx.lineWidth = 2; // Rahmenbreite auf 2 Pixel setzen
         ctx.strokeRect(enemy.x, enemy.y, breiteEnemy, hoeheEnemy); // Rahmen zeichnen
