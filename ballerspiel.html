@@ -1,112 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shoot 'em Up Game</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center; 
-        }
-        #backgroundVideo {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            min-width: auto;
-            min-height: auto;
-            width: auto;
-            height: auto;
-            z-index: -1000;
-            background-size: cover;
-            width: 100%;
-            height: auto;
-            left: 0;
-            top: 0;
-            overflow: hidden;
-            object-fit: cover;
-            aspect-ratio: 16/9;
-        }
-        #gameCanvas {
-            border: 2px solid red;
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            height: auto;
-            left: 0;
-            top: 0;
-            aspect-ratio: 16/9;
-        }
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: auto;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            font-size: 24px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 2;
-            aspect-ratio: 16/9;
-        }
-        #gameContainer {
-			position: relative;
-			box-shadow: 0 0 0px 5px blue;
-			overflow: hidden;
-			min-width: auto;
-			height: 90vh;
-			max-height: 800px;
-			aspect-ratio: 16 / 9;
-			margin: auto;
-			margin-top: 11px;
-			margin-bottom: 60px;
-		}
-        button {
-            font-size: 20px;
-            padding: 10px 20px; 
-            margin: 10px;
-            cursor: pointer;
-        }
-        #rabbitImage {
-            max-width: 300px;
-            max-height: 300px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: transform 0.5s ease-in-out;
-        }
-        #rabbitImage:hover {
-            animation: moveLeftRight 2s infinite ease-in-out;
-        }
-        @keyframes moveLeftRight {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(50px); }
-        }
-        #musicCredit, #volumeControl {
-            position: absolute;
-            color: #fff;
-            font-size: 18px;
-            z-index: 3;
-        }
-        #musicCredit {
-            bottom: 10px;
-            right: 10px;
-        }
-        #volumeControl {
-            top: 10px;
-            right: 10px;
-        }
-    </style>
+
+    <link rel="stylesheet" href="style.css">
+
 </head>
-<body>    
+
+<body>
     <div id="gameContainer">
         <canvas id="gameCanvas" width="800" height="600"></canvas>
         <div id="startOverlay" class="overlay">
@@ -114,9 +18,9 @@
             <p>Press 'Y' to start the game</p>
             <p>Use '+' and '-' to adjust volume</p>
         </div>
-		
-		<div id="volumeControl">Volume: 50%</div>
-		
+
+        <div id="volumeControl">Volume: 50%</div>
+
         <div id="gameOverOverlay" class="overlay" style="display: none;">
             <h2>Game Over!</h2>
             <p>Do you want to play again?</p>
@@ -125,16 +29,19 @@
             <button id="noButton">No (N)</button>
         </div>
         <div id="rabbitOverlay" class="overlay" style="display: none;">
-            <img id="rabbitImage" src="https://img.freepik.com/free-photo/cute-ai-generated-cartoon-bunny_23-2150288888.jpg?t=st=1725812578~exp=1725816178~hmac=d6e95945ec09d8488312d82cfde17251d95fa8e22a9f35cf25bc317860472a9f&w=740" alt="Funny Rabbit">
+            <img id="rabbitImage"
+                src="https://img.freepik.com/free-photo/cute-ai-generated-cartoon-bunny_23-2150288888.jpg?t=st=1725812578~exp=1725816178~hmac=d6e95945ec09d8488312d82cfde17251d95fa8e22a9f35cf25bc317860472a9f&w=740"
+                alt="Funny Rabbit">
             <p>Click the rabbit to play again!</p>
         </div>
-		<video autoplay muted loop id="backgroundVideo">
-			<source src="https://mdbootstrap.com/img/video/Lines.mp4" type="video/mp4">
-		</video>		
+        <video autoplay muted loop id="backgroundVideo">
+            <source src="https://mdbootstrap.com/img/video/Lines.mp4" type="video/mp4">
+        </video>
     </div>
-    <audio id="backgroundMusic" src="https://ia800905.us.archive.org/19/items/FREE_background_music_dhalius/backsound.mp3" loop></audio>
+    <audio id="backgroundMusic"
+        src="https://ia800905.us.archive.org/19/items/FREE_background_music_dhalius/backsound.mp3" loop></audio>
     <div id="musicCredit">Music: Background Music from Internet Archive</div>
-    
+
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
@@ -271,7 +178,7 @@
                     lives--;
                     createExplosion(spaceship.x + spaceship.width / 2, spaceship.y + spaceship.height / 2);
                     enemies.splice(i, 1);
-                    
+
                     shakeTime = 30;
                     shakeIntensity = 20;
 
@@ -411,4 +318,5 @@
         gameLoop();
     </script>
 </body>
+
 </html>
