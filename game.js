@@ -12,30 +12,38 @@ const volumeControl = document.getElementById('volumeControl');
 canvas.width = 800;
 canvas.height = 600;
 
-const spaceship = {
-    x: canvas.width / 2,
-    y: canvas.height - 50,
-    width: 50,
-    height: 50,
-    speed: 5
-};
+
 
 let bullets = [];
-let enemies = [];
+// let enemies = [];
 let particles = [];
 let lives = 3;
 let shakeTime = 0;
 let shakeIntensity = 0;
 let gameRunning = false;
 let gameOverScreenActive = false;
-let volume = 0.5;
+let volume = 0.3;
 
 backgroundMusic.volume = volume;
 volumeControl.textContent = `Volume: ${Math.round(volume * 100)}%`;
 
+
+const spaceshipImage = new Image();
+spaceshipImage.src = 'img/spaceship.gif'; // Replace with your spaceship image URL
+
+const spaceship = {
+    x: canvas.width / 2,
+    y: canvas.height - 50,
+    width: 50,
+    height: 70,
+    speed: 5
+};
 function drawSpaceship() {
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(spaceship.x, spaceship.y, spaceship.width, spaceship.height);
+    // ctx.fillStyle = '#fff';
+    // ctx.fillRect(spaceship.x, spaceship.y, spaceship.width, spaceship.height);
+    //spaceshipImage.onload = function () {
+    ctx.drawImage(spaceshipImage, spaceship.x, spaceship.y, spaceship.width, spaceship.height);
+    //};
 }
 
 function drawBullets() {
@@ -45,13 +53,43 @@ function drawBullets() {
     }
 }
 
+/* 
+let enemies = [];
 function drawEnemies() {
     for (let enemy of enemies) {
         ctx.fillStyle = '#f00';
         ctx.fillRect(enemy.x, enemy.y, 50, 50);
     }
 }
+    */
 
+
+const breiteEnemy = 70;
+const hoeheEnemy = 80;
+const rahmenEnemy = "transparent"; // farbe kann angegeben werden z.B red, blue ....
+
+// ----------------------------------------------------------------------
+
+let enemies = [];
+let enemyImage = new Image(); // Create a new image object
+enemyImage.src = 'img/monster2.gif'; // Set the source of the image
+
+// Warten, bis das Bild geladen ist
+enemyImage.onload = function () {
+    // Hier können Sie die drawEnemies()-Funktion aufrufen
+    drawEnemies();
+};
+
+function drawEnemies() {
+    for (let enemy of enemies) {
+        ctx.drawImage(enemyImage, enemy.x, enemy.y, breiteEnemy, hoeheEnemy); // Größe auf 100x100 geändert
+        ctx.strokeStyle = `${rahmenEnemy}`; // Rahmenfarbe auf Rot setzen
+        ctx.lineWidth = 2; // Rahmenbreite auf 2 Pixel setzen
+        ctx.strokeRect(enemy.x, enemy.y, breiteEnemy, hoeheEnemy); // Rahmen zeichnen
+    }
+}
+
+// ----------------------------------------------------------------------
 function drawParticles() {
     for (let particle of particles) {
         ctx.fillStyle = `rgba(255, ${particle.g}, 0, ${particle.alpha})`;
@@ -127,9 +165,9 @@ function update() {
 
     for (let i = 0; i < enemies.length; i++) {
         if (spaceship.x + spaceship.width > enemies[i].x &&
-            spaceship.x < enemies[i].x + 50 &&
+            spaceship.x < enemies[i].x + breiteEnemy &&
             spaceship.y + spaceship.height > enemies[i].y &&
-            spaceship.y < enemies[i].y + 50) {
+            spaceship.y < enemies[i].y + hoeheEnemy) {
             lives--;
             createExplosion(spaceship.x + spaceship.width / 2, spaceship.y + spaceship.height / 2);
             enemies.splice(i, 1);
@@ -233,7 +271,7 @@ document.addEventListener('keyup', (e) => {
 
 function spawnEnemy() {
     if (gameRunning) {
-        enemies.push({ x: Math.random() * (canvas.width - 50), y: 0 });
+        enemies.push({ x: Math.random() * (canvas.width - breiteEnemy), y: 0 });
         setTimeout(spawnEnemy, 1000);
     }
 }
