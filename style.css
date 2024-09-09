@@ -1,0 +1,105 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#backgroundVideo {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  min-width: auto;
+  min-height: auto;
+  width: auto;
+  height: auto;
+  z-index: -1000;
+  background-size: cover;
+  width: 100%;
+  height: auto;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  object-fit: cover;
+  aspect-ratio: 16/9;
+}
+#gameCanvas {
+  border: 2px solid red;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  left: 0;
+  top: 0;
+  aspect-ratio: 16/9;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  aspect-ratio: 16/9;
+}
+#gameContainer {
+  position: relative;
+  box-shadow: 0 0 0px 5px blue;
+  overflow: hidden;
+  min-width: auto;
+  height: 90vh;
+  max-height: 800px;
+  aspect-ratio: 16 / 9;
+  margin: auto;
+  margin-top: 11px;
+  margin-bottom: 60px;
+}
+button {
+  font-size: 20px;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+}
+#rabbitImage {
+  max-width: 300px;
+  max-height: 300px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: transform 0.5s ease-in-out;
+}
+#rabbitImage:hover {
+  animation: moveLeftRight 2s infinite ease-in-out;
+}
+@keyframes moveLeftRight {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(50px);
+  }
+}
+#musicCredit,
+#volumeControl {
+  position: absolute;
+  color: #fff;
+  font-size: 18px;
+  z-index: 3;
+}
+#musicCredit {
+  bottom: 10px;
+  right: 10px;
+}
+#volumeControl {
+  top: 10px;
+  right: 10px;
+}
